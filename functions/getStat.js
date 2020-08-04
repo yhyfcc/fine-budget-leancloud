@@ -3,7 +3,7 @@ const AV = require('leanengine');
 AV.Cloud.define('getStat',async function(request){
     let body = request.params;
     
-    if(!body.startDate || !body.endDate || !body.type || !body.ioType){
+    if(!body.startDate || !body.endDate || !body.type || !body.ioType || typeof body.getAllCategory === 'undefined'){
         throw new AV.Cloud.Error('Invalid parameters');
     }
 
@@ -21,11 +21,13 @@ AV.Cloud.define('getStat',async function(request){
     query.greaterThanOrEqualTo('date',startDate);
 
 
-    if(body.category){
-        query.equalTo('forCategory',true);
-        query.equalTo('category',{__type:'Pointer',className:"Category",objectId: body.category});
-    }else{
-        query.equalTo('forCategory',false);
+    if(!body.getAllCategory){
+        if(body.category){
+            query.equalTo('forCategory',true);
+            query.equalTo('category',{__type:'Pointer',className:"Category",objectId: body.category});
+        }else{
+            query.equalTo('forCategory',false);
+        }
     }
 
     query.ascending('date');
