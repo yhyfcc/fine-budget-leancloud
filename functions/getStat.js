@@ -12,6 +12,7 @@ AV.Cloud.define('getStat',async function(request){
     let endDate = new Date(body.endDate);
     console.log(startDate);
     console.log(endDate);
+    console.log(startDate.getTimezoneOffset());
 
     let query = new AV.Query('Statistics');
 
