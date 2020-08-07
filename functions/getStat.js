@@ -10,7 +10,8 @@ AV.Cloud.define('getStat',async function(request){
 
     let startDate = new Date(body.startDate);
     let endDate = new Date(body.endDate);
-
+    console.log(startDate);
+    console.log(endDate);
 
     let query = new AV.Query('Statistics');
 
